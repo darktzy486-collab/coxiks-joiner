@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Joining Roblox</title>
-	<script>
-		window.onload = function()
-		{
-			const params = new URLSearchParams(window.location.search);
-			const placeId = params.get('920587237');
-			const gameInstanceId = params.get('gameInstanceId');
+    <meta charset="UTF-8">
+    <title>Roblox Server Join</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-			if (placeId && gameInstanceId)
-			{
-				window.location.href = `roblox://placeID=${920587237}&gameInstanceId=${gameInstanceId}`;
-			}
-			else
-			{
-				document.body.textContent = "Error: Missing Place ID or Game Instance ID.";
-			}
-		};
-	</script>
+    <!-- Discord preview text -->
+    <meta property="og:title" content="Join Roblox Server">
+    <meta property="og:description" content="Click to join the server directly">
 </head>
-<body></body>
+<body>
+    <h2>Joining Roblox server…</h2>
+    <p>If nothing happens, make sure Roblox is installed.</p>
+
+    <script>
+        const PLACE_ID = "920587237";
+
+        const params = new URLSearchParams(window.location.search);
+        const gameInstanceId = params.get("gameinstanceid");
+
+        if (!gameInstanceId) {
+            document.body.innerHTML = "<h3>Error: Missing gameinstanceid</h3>";
+            throw new Error("gameinstanceid required");
+        }
+
+        const robloxUrl =
+            `roblox-player:1+launchmode:play+placeid:${PLACE_ID}+gameinstanceid:${gameInstanceId}`;
+
+        window.location.href = robloxUrl;
+    </script>
+</body>
 </html>
