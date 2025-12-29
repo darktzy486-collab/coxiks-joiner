@@ -1,49 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Joining Roblox</title>
-	<script>
-		window.onload = function()
-		{
-			const params = new URLSearchParams(window.location.search);
-			const placeId = params.get('920587237');
-			const gameInstanceId = params.get('gameInstanceId');
-
-			if (placeId && gameInstanceId)
-			{
-				window.location.href = `roblox://placeID=${<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Joining Roblox</title>
-	<script>
-		window.onload = function()
-		{
-			const params = new URLSearchParams(window.location.search);
-			const placeId = params.get('920587237');
-			const gameInstanceId = params.get('gameInstanceId');
-
-			if (placeId && gameInstanceId)
-			{
-				window.location.href = `roblox://placeID=${920587237}&gameInstanceId=${gameInstanceId}`;
-			}
-			else
-			{
-				document.body.textContent = "Error: Missing Place ID or Game Instance ID.";
-			}
-		};
-	</script>
+    <meta charset="UTF-8">
+    <title>Roblox Server Joiner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body></body>
-</html>}&gameInstanceId=${gameInstanceId}`;
-			}
-			else
-			{
-				document.body.textContent = "Error: Missing Place ID or Game Instance ID.";
-			}
-		};
-	</script>
-</head>
-<body></body>
+<body>
+    <h2>Joining Roblox server…</h2>
+    <p>If nothing happens, make sure the Roblox app is installed.</p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        // Accept both standard and lowercase parameters
+        const placeId =
+            params.get("placeId") || params.get("placeid");
+
+        const gameInstanceId =
+            params.get("gameInstanceId") || params.get("gameinstanceid");
+
+        if (!placeId || !gameInstanceId) {
+            document.body.innerHTML = `
+                <h3>Error</h3>
+                <p>Missing <b>placeId</b> or <b>gameInstanceId</b></p>
+                <p>Example usage:</p>
+                <code>?placeId=123456789&gameInstanceId=JOB_ID_HERE</code>
+            `;
+            throw new Error("Missing parameters");
+        }
+
+        // ✅ Modern Roblox deep link (THIS IS THE KEY FIX)
+        const robloxUrl =
+            `roblox://experiences/start?placeId=${placeId}&gameInstanceId=${gameInstanceId}`;
+
+        // Small delay improves browser compatibility
+        setTimeout(() => {
+            window.location.href = robloxUrl;
+        }, 150);
+    </script>
+</body>
 </html>
